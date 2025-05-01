@@ -40,7 +40,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
-    cy.get('#phone-checkbox').click()
+    cy.get('#phone-checkbox').check().should('be.checked')
     cy.get('#open-text-area').type('obrigado!')
     cy.get('button[type="submit"]').click()
 
@@ -106,4 +106,74 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get(".success").should('be.visible')
   })
 
+  it('seleciona um produto (YouTube) por seu texto', () => {
+    cy.get('#product')
+      .select('YouTube') // em maiusculo pq o conteudo de uma das options é YouTube
+      .should('have.value', 'youtube') // o valor é em minusculo, por que é o valor de uma das options
+  })
+
+  it('seleciona um produto (Mentoria) por seu valor (value)', () => {
+    cy.get('#product')
+      .select('mentoria') 
+      .should('have.value', 'mentoria')
+  })
+
+  it('seleciona um produto (Blog) por seu índice', () => {
+    cy.get('#product')
+      .select(1) 
+      .should('have.value', 'blog')
+  })
+
+  it('marca o tipo de atendimento "Feedback"', () => {
+    cy.get('input[type="radio"][value="feedback"]')
+      .check()
+      .should('be.checked')
+  })
+
+  // rever a funcao each e wrap
+  it('marca cada tipo de atendimento', () => {
+    cy.get('input[type="radio"]')
+      .each(typeOfService => { //a funcao each recebe como argumento uma funcao... e essa funcao vai receber como argumento, cada um dos radios button
+        cy.wrap(typeOfService) //vai empacotar cada tipo de atendimento
+          .check()
+          .should('be.checked')
+      })
+  })
+
+  it('marca TODOS os checkboxes, depois desmarca o ultimo', () => {
+    cy.get('input[type="checkbox"]')
+      .check()
+      .should('be.checked')
+      .last()
+      .uncheck()
+      .should('not.be.checked')
+
+    // cy.get('#email-checkbox').check().should('be.checked')
+    // cy.get('#phone-checkbox').check().should('be.checked')
+
+  })
+
+  it('seleciona um arquivo da pasta fixtures', () => {
+    cy.get('#file-upload')
+      .selectFile('cypress/fixtures/example.json')
+      .should(input => { //o should tambem pode receber uma funcao de call back
+        expect(input[0].files[0].name).to.equal('example.json')
+      })
+  })
+  it('seleciona um arquivo simulando um drag and drop', () => {
+    cy.get('#file-upload')
+      .selectFile('cypress/fixtures/example.json', { action : 'drag-drop'})
+      .should(input => { 
+        expect(input[0].files[0].name).to.equal('example.json')
+      })
+  })
+
+  it.only('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', () => {
+    cy.fixture('example.json').as('sampleFile')
+    cy.get('#file-upload')
+      .selectFile('@sampleFile')
+      .should(input => { 
+        expect(input[0].files[0].name).to.equal('example.json')
+      })
+  })
 })
