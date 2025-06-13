@@ -4,10 +4,12 @@
   "description": "Curso 'Cypress, do Zero à Nuvem' da Escola Talking About Testing.",
   "main": "src/index.html",
   "scripts": {
-    "cy:open": "cypress open",
+    "cy:open": "cypress open", 
+    "cy:open:mobile": "cypress open --config viewportWidth=410,viewportHeight=860",
     "test": "cypress run",
     "test:Chrome": "cypress run --browser chrome",
-    "test:cloud": "cypress run --record --browser chrome"
+    "test:cloud": "cypress run --record --browser chrome",
+    "test:mobile": "cypress run --config viewportWidth=410,viewportHeight=860"
   },
   "repository": {
     "type": "git",
@@ -27,8 +29,6 @@
   "homepage": "https://github.com/wlsf82/cypress-do-zero-a-nuvem#readme",
   "dependencies": {
     "cypress": "^14.1.0"
-  },
-  "devDependencies": {
-    "@cypress/puppeteer": "^0.1.5"
   }
 }
+

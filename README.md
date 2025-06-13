@@ -26,3 +26,10 @@ Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
 ___
 
 Este é um curso da **Escola Talking About Testing**.
+
+
+package.json
+"scripts": 
+    "cy:open": "cypress open", // abre a cypress app ou o test runner para vermos os testes executando
+    "test": "cypress run", // roda os testes em modo headless - utilizado na integracao continua
+ 
