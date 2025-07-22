@@ -219,7 +219,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .click()
   })
 
-  it('exibe e oculta as mensagens de sucesso e erro usando .invoke()', () => {
+  it.only('exibe e oculta as mensagens de sucesso e erro usando .invoke()', () => {
     cy.get('.success')
       .should('not.be.visible')
       .invoke('show')
@@ -236,12 +236,12 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .should('not.be.visible')
   })
 
-  it('preenche o campo da área de texto usando o comando invoke', () =>{
+  it.only('preenche o campo da área de texto usando o comando invoke', () =>{
     cy.get('#open-text-area').invoke('val', 'um texto qualquer')
       .should('have.value', 'um texto qualquer')
   })
 
-  it('faz uma requisição HTTP', () =>{
+  it.only('faz uma requisição HTTP', () =>{
     cy.request('https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html')
       .as('getRequest')
       .its('status')
@@ -256,7 +256,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .should('include', 'CAC TAT')
   })
 
-  it.only('exibe o gato', () => {
+  it('exibe o gato', () => {
     cy.get('#cat')
       .should('not.be.visible')
       .invoke('show')
